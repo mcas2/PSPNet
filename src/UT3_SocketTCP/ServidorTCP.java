@@ -7,7 +7,7 @@ import java.net.Socket;
 import java.net.ServerSocket;
 
 public class ServidorTCP {
-    static final int PORT = 2222;
+    static final int PORT = 1024;
 
     public static void main(String[] args) {
         //Flujo de mensajes
