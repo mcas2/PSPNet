@@ -10,7 +10,7 @@ import java.net.UnknownHostException;
 import java.util.Scanner;
 
 public class ClienteTCP {
-    static final String HOST = "192.168.43.67";
+    static final String HOST = "127.0.0.1";
     static final int PORT = 1024;
 
     public static void main(String[] args) {
@@ -22,7 +22,6 @@ public class ClienteTCP {
 
         Socket sc = null;
 
-        for (int i = 0; i < 100000; i++) {
             try {
                 sc = new Socket(HOST, PORT);
                 System.out.println("Cliente conectado");
@@ -45,4 +44,4 @@ public class ClienteTCP {
             }
         }
     }
-}
+
