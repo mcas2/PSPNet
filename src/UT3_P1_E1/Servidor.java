@@ -30,15 +30,11 @@ public class Servidor {
                 out = new DataOutputStream(sc.getOutputStream());
 
                 //Lectura del servidor
-
-                //Enviamos respuesta al mensaje
-                String envio = "Mensaje a REPETIR.";
-                System.out.println("Se envía el " + envio);
-                out.writeUTF(envio);
-
-                String mensaje = in.readUTF();
+                String mensaje = in.readUTF(); //Se queda esperando hasta recibir un mensaje del cliente
                 System.out.println("Mensaje: " + mensaje);
 
+                //Enviamos respuesta al mensaje
+                out.writeUTF("Mensaje a REPETIR.");
 
                 in.close();
                 out.close();
