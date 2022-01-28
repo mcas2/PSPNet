@@ -9,50 +9,38 @@ import java.net.Socket;
 public class Servidor {
     static final int PORT = 1024;
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         boolean asterisco = false;
-        boolean hilosVivos = true;
-        String hiloStatus;
         String cadena;
         DataInputStream in;
         DataOutputStream out;
 
-        ServerSocket servidor = null;
+        ServerSocket servidor = new ServerSocket(PORT);
         Socket sk = null;
-        int suma = 0;
+        System.out.println("Servidor en pie. Esperando al cliente.");
 
-        try {
-            System.out.println("Inizializado el servidor, esperando al cliente...");
-            servidor = new ServerSocket(PORT);
-
-            while (hilosVivos){
+        while (true){
+            try {
                 sk = servidor.accept();
-                System.out.println("Comunicación establecida.");
+                System.out.println("Cliente conectado." + sk);
 
-                //Flujos de recepción y envío de mensajes
                 in = new DataInputStream(sk.getInputStream());
                 out = new DataOutputStream(sk.getOutputStream());
 
-                while(!asterisco){
-                    cadena = in.readUTF();
-                    if (cadena.equals("*")) {
-                        asterisco = true;
-                    }
-                    out.writeInt(cadena.length());
-                    hiloStatus = in.readUTF();
+                AtenderCliente ac1 = new AtenderCliente(sk, in, out);
+                AtenderCliente ac2 = new AtenderCliente(sk, in, out);
+                AtenderCliente ac3 = new AtenderCliente(sk, in, out);
 
-                    //Contar los hilos conectados y despues cerrar el servidor una vez se apaguen todos
-                    if (hiloStatus.equalsIgnoreCase("Finalizado")){
-                        hilosVivos
-                    }
-                }
+                ac1.start();
+                ac2.start();
+                ac3.start();
 
-                in.close();
-                out.close();
+            } catch (IOException e) {
                 sk.close();
+                e.printStackTrace();
             }
-        } catch (IOException e) {
-            e.printStackTrace();
         }
+
+
     }
 }
