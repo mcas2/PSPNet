@@ -1,4 +1,4 @@
-package UT3_P1_E2;
+package UT3_P1_E4;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -10,6 +10,10 @@ public class Servidor {
     static final int PORT = 1024;
 
     public static void main(String[] args) {
+        boolean asterisco = false;
+        boolean hilosVivos = true;
+        String hiloStatus;
+        String cadena;
         DataInputStream in;
         DataOutputStream out;
 
@@ -21,7 +25,7 @@ public class Servidor {
             System.out.println("Inizializado el servidor, esperando al cliente...");
             servidor = new ServerSocket(PORT);
 
-            while (true){
+            while (hilosVivos){
                 sk = servidor.accept();
                 System.out.println("Comunicación establecida.");
 
@@ -29,20 +33,19 @@ public class Servidor {
                 in = new DataInputStream(sk.getInputStream());
                 out = new DataOutputStream(sk.getOutputStream());
 
-                //Lectura del servidor
-                int numero = in.readInt(); // lee el número
-
-                for (int i = 0; i < numero; i++) {
-                    String palabra = in.readUTF();
-                    for (int j = 0; j < palabra.length(); j++) {
-                        int letra = (int) palabra.codePointAt(j);
-                        suma = letra + suma;
+                while(!asterisco){
+                    cadena = in.readUTF();
+                    if (cadena.equals("*")) {
+                        asterisco = true;
                     }
-                    out.writeUTF(suma+"");
-                    suma = 0;
-                }
+                    out.writeInt(cadena.length());
+                    hiloStatus = in.readUTF();
 
-                out.writeUTF("Servidor ha terminado.");
+                    //Contar los hilos conectados y despues cerrar el servidor una vez se apaguen todos
+                    if (hiloStatus.equalsIgnoreCase("Finalizado")){
+                        hilosVivos
+                    }
+                }
 
                 in.close();
                 out.close();
