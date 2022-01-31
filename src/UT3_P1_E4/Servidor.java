@@ -35,6 +35,8 @@ public class Servidor {
                 ac1.join();
                 ac2.start();
                 ac2.join();
+
+                //SI QUEREMOS 3 HILOS NECESITAMOS 3 CLIENTES
                 //ac3.start();
                 //ac3.join();
 

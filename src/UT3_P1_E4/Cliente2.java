@@ -4,10 +4,9 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
-import java.net.UnknownHostException;
 import java.util.Scanner;
 
-public class Cliente {
+public class Cliente2 {
     static final String HOST = "127.0.0.1";
     static final int PORT = 1024;
 

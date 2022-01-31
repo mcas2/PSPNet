@@ -15,7 +15,6 @@ public class AtenderCliente extends Thread {
     DataOutputStream out;
     Socket sk;
 
-    private String cadena;
     private boolean asterisco = false;
 
     public AtenderCliente(Socket sk, DataInputStream in, DataOutputStream out) {
@@ -26,28 +25,15 @@ public class AtenderCliente extends Thread {
 
     @Override
     public void run() {
+        String cadena;
         try {
             while (!asterisco){
-                System.out.println("Comunicación establecida.");
-
-                in = new DataInputStream(sk.getInputStream());
-                out = new DataOutputStream(sk.getOutputStream());
-
-                while(!asterisco){
-                    cadena = in.readUTF();
+                cadena = in.readUTF();
                     if (cadena.equals("*")) {
                         asterisco = true;
                     }
                     out.writeInt(cadena.length());
-                }
             }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        try {
-            in.close();
-            out.close();
 
         } catch (IOException e) {
             e.printStackTrace();
