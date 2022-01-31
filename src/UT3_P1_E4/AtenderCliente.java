@@ -48,7 +48,6 @@ public class AtenderCliente extends Thread {
         try {
             in.close();
             out.close();
-            sk.close();
 
         } catch (IOException e) {
             e.printStackTrace();
