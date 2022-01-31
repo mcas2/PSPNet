@@ -32,15 +32,17 @@ public class Servidor {
                 AtenderCliente ac3 = new AtenderCliente(sk, in, out);
 
                 ac1.start();
+                ac1.join();
                 ac2.start();
-                ac3.start();
+                ac2.join();
+                //ac3.start();
+                //ac3.join();
 
             } catch (IOException e) {
-                sk.close();
+                e.printStackTrace();
+            } catch (InterruptedException e) {
                 e.printStackTrace();
             }
         }
-
-
     }
 }
