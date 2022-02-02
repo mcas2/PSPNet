@@ -17,7 +17,8 @@ public class AtenderCliente extends Thread {
 
     private boolean asterisco = false;
 
-    public AtenderCliente(Socket sk, DataInputStream in, DataOutputStream out) {
+    public AtenderCliente(String n, Socket sk, DataInputStream in, DataOutputStream out) {
+        setName(n);
         this.in = in;
         this.out = out;
         this.sk = sk;

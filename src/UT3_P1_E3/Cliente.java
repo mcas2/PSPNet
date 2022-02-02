@@ -12,10 +12,8 @@ public class Cliente {
     static final int PORT = 1024;
 
     public static void main(String[] args) {
-        String cadena;
+        String cadena = "";
         Scanner sc = new Scanner(System.in);
-        boolean asterisco = false;
-        int index = 0;
 
         DataInputStream in;
         DataOutputStream out;
@@ -32,17 +30,12 @@ public class Cliente {
             in = new DataInputStream(sk.getInputStream());
             out = new DataOutputStream(sk.getOutputStream());
 
-            while(asterisco!=true){
+            while(!cadena.equalsIgnoreCase("*")){
                 cadena = sc.nextLine();
-                if (cadena.equals("*")){
-                    asterisco = true;
-                }
                 out.writeUTF(cadena);
-                if (asterisco == true){
-                    in.readInt();
-                    System.out.println("Finalizado");
-                } else {
-                System.out.println("Tiene "+in.readInt()+" caracteres.");
+
+                if (!cadena.equalsIgnoreCase("*")){
+                    System.out.println("Tiene "+in.readInt()+" caracteres.");
                 }
             }
 

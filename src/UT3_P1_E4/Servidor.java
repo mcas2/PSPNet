@@ -12,6 +12,7 @@ public class Servidor {
     public static void main(String[] args) throws IOException {
         boolean asterisco = false;
         String cadena;
+        String nameThread;
         DataInputStream in;
         DataOutputStream out;
 
@@ -27,14 +28,16 @@ public class Servidor {
                 in = new DataInputStream(sk.getInputStream());
                 out = new DataOutputStream(sk.getOutputStream());
 
-                AtenderCliente ac1 = new AtenderCliente(sk, in, out);
-                AtenderCliente ac2 = new AtenderCliente(sk, in, out);
-                AtenderCliente ac3 = new AtenderCliente(sk, in, out);
 
-                ac1.start();
+
+                //AtenderCliente ac1 = new AtenderCliente(sk, in, out);
+                //AtenderCliente ac2 = new AtenderCliente(sk, in, out);
+                //AtenderCliente ac3 = new AtenderCliente(sk, in, out);
+
+                /*ac1.start();
                 ac1.join();
                 ac2.start();
-                ac2.join();
+                ac2.join();*/
 
                 //SI QUEREMOS 3 HILOS NECESITAMOS 3 CLIENTES
                 //ac3.start();
@@ -42,9 +45,9 @@ public class Servidor {
 
             } catch (IOException e) {
                 e.printStackTrace();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
+            } //catch (InterruptedException e) {
+                //e.printStackTrace();
             }
         }
     }
-}
+//}
