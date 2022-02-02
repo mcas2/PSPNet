@@ -5,43 +5,38 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.ArrayList;
+import java.util.Collection;
 
 public class Servidor {
     static final int PORT = 1024;
 
     public static void main(String[] args) throws IOException {
-        boolean asterisco = false;
+        ArrayList<Thread> threadCollection = new ArrayList<>();
         String cadena;
         String nameThread;
         DataInputStream in;
         DataOutputStream out;
+        int contador = 0;
 
         ServerSocket servidor = new ServerSocket(PORT);
-        Socket sk = null;
         System.out.println("Servidor en pie. Esperando al cliente.");
 
         while (true){
             try {
+                Socket sk = null;
                 sk = servidor.accept();
                 System.out.println("Cliente conectado." + sk);
 
+                nameThread = "Hilo"+contador;
                 in = new DataInputStream(sk.getInputStream());
                 out = new DataOutputStream(sk.getOutputStream());
 
+                AtenderCliente ac = new AtenderCliente(nameThread,sk);
+                threadCollection.add(ac);
+                contador ++;
 
-
-                //AtenderCliente ac1 = new AtenderCliente(sk, in, out);
-                //AtenderCliente ac2 = new AtenderCliente(sk, in, out);
-                //AtenderCliente ac3 = new AtenderCliente(sk, in, out);
-
-                /*ac1.start();
-                ac1.join();
-                ac2.start();
-                ac2.join();*/
-
-                //SI QUEREMOS 3 HILOS NECESITAMOS 3 CLIENTES
-                //ac3.start();
-                //ac3.join();
+                ac.start();
 
             } catch (IOException e) {
                 e.printStackTrace();

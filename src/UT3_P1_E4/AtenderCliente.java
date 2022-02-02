@@ -17,11 +17,11 @@ public class AtenderCliente extends Thread {
 
     private boolean asterisco = false;
 
-    public AtenderCliente(String n, Socket sk, DataInputStream in, DataOutputStream out) {
+    public AtenderCliente(String n, Socket sk) throws IOException {
         setName(n);
-        this.in = in;
-        this.out = out;
         this.sk = sk;
+        this.in = new DataInputStream(sk.getInputStream());
+        this.out = new DataOutputStream(sk.getOutputStream());
     }
 
     @Override
