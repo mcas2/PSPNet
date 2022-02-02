@@ -22,27 +22,25 @@ public class Servidor {
         ServerSocket servidor = new ServerSocket(PORT);
         System.out.println("Servidor en pie. Esperando al cliente.");
 
-        while (true){
+        while (true) {
             try {
                 Socket sk = null;
                 sk = servidor.accept();
                 System.out.println("Cliente conectado." + sk);
 
-                nameThread = "Hilo"+contador;
+                nameThread = "Hilo" + contador;
                 in = new DataInputStream(sk.getInputStream());
                 out = new DataOutputStream(sk.getOutputStream());
 
-                AtenderCliente ac = new AtenderCliente(nameThread,sk);
+                AtenderCliente ac = new AtenderCliente(nameThread, sk);
                 threadCollection.add(ac);
-                contador ++;
+                contador++;
 
                 ac.start();
 
             } catch (IOException e) {
                 e.printStackTrace();
-            } //catch (InterruptedException e) {
-                //e.printStackTrace();
             }
         }
     }
-//}
+}
