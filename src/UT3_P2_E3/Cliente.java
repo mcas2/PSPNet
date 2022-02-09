@@ -1,8 +1,6 @@
-package UT3_P2_E2;
-
+package UT3_P2_E3;
 import java.io.IOException;
 import java.net.*;
-import java.sql.Time;
 
 public class Cliente {
     final static int PORT_SERVER = 5000;
@@ -11,22 +9,21 @@ public class Cliente {
         byte [] buffer;
 
         try {
+            //HAY QUE METER UN WHILE PARA ENVIAR LOS MENSAJES Y UN SCANNER PARA ESCRIBIRLOS
+
             InetAddress serverAddress  = InetAddress.getLocalHost();
 
             DatagramSocket ds = new DatagramSocket();
-            ds.setSoTimeout(5000);
 
-            String mensaje = "Petición";
+            String mensaje = "Soy el cliente que vuelva esto";
 
             buffer = mensaje.getBytes();
-            buffer = new byte[1024];
 
             DatagramPacket peticion = new DatagramPacket(buffer, buffer.length, serverAddress, PORT_SERVER);
 
             ds.send(peticion);
 
             DatagramPacket respuestaServidor = new DatagramPacket(buffer, buffer.length);
-
             ds.receive(respuestaServidor);
 
             String respuesta = new String(respuestaServidor.getData());
@@ -34,9 +31,6 @@ public class Cliente {
 
         } catch (SocketException e) {
             e.printStackTrace();
-        }
-        catch (SocketTimeoutException e){
-            System.out.println("El cliente no ha recibido respuesta del servidor.");
         } catch (UnknownHostException e) {
             e.printStackTrace();
         } catch (IOException e) {
