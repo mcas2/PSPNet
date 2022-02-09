@@ -21,8 +21,8 @@ public class Servidor {
             try {
                 Socket sk = null;
                 sk = serverSocket.accept();
-                nameThread = in.readUTF();
-                System.out.println(nameThread + " se ha unido al grupo.");
+                //nameThread = in.readUTF();
+                //System.out.println(nameThread + " se ha unido al grupo.");
 
 
             } catch (IOException e) {
