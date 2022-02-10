@@ -26,21 +26,20 @@ public class Servidor {
                 int puertoCliente = peticion.getPort();
                 InetAddress address = peticion.getAddress();
 
-
                 while (!mensaje.equalsIgnoreCase("*")){
-                    socketUDP.receive(peticion);
-                    mensaje = new String(peticion.getData());
-
+                    System.out.println(mensaje);
 
                     cuenta = mensaje.length();
-                    String msgRespuesta = cuenta.toString();
+                    String msgRespuesta = "Tiene " + cuenta.toString() + " caracteres.";
                     buffer = msgRespuesta.getBytes();
+
                     DatagramPacket respuesta = new DatagramPacket(buffer, buffer.length, address, puertoCliente);
                     socketUDP.send(respuesta);
 
+                    peticion = new DatagramPacket(buffer, buffer.length);
+                    socketUDP.receive(peticion);
+                    mensaje = new String(peticion.getData());
                 }
-
-
 
                 System.out.println("Finalizada la comunicación UDP");
             }
