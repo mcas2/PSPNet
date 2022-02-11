@@ -21,13 +21,16 @@ public class Cliente {
             while (!cadena.equalsIgnoreCase("*")){
                 cadena = sc.nextLine();
 
+                buffer = new byte[1024];
                 buffer = cadena.getBytes();
                 DatagramPacket peticion = new DatagramPacket(buffer, buffer.length, serverAddress, PORT_SERVER);
                 ds.send(peticion);
 
                 DatagramPacket respuestaServidor = new DatagramPacket(buffer, buffer.length);
                 ds.receive(respuestaServidor);
-                String respuesta = new String(respuestaServidor.getData());
+
+                String respuesta = new String(respuestaServidor.getData()).trim();
+                respuesta = Integer.toString(respuesta.length());
                 if (!respuesta.equalsIgnoreCase("*")) {
                     System.out.println("Tiene "+respuesta+" caracteres.");
                 }
