@@ -31,14 +31,15 @@ public class Servidor {
 
                 String intento = in.readUTF();
 
-                for (int i = 0; i < palabra.length()&&!intento.equalsIgnoreCase(palabra); i++) {
+                for (int i = 0; i < palabra.length() && !intento.equalsIgnoreCase(palabra); i++) {
+                    out.writeUTF("Error. La posición " + i + " es una " + palabra.charAt(i+1));
+
                     intento = in.readUTF();
                     if (intento == palabra){
                         out.writeUTF("true");
                     } else{
                         out.writeUTF("false");
                     }
-                    out.writeUTF("Error. La posición " + i + " es una " + palabra.charAt(i+1));
                 }
 
                 String mensajeAcierto = "¡El cliente ha acertado!";
