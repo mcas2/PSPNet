@@ -33,7 +33,6 @@ public class Cliente {
             while(!cadena.equalsIgnoreCase("*")){
                 cadena = sc.nextLine();
                 out.writeUTF(cadena);
-
                 if (!cadena.equalsIgnoreCase("*")){
                     System.out.println("Tiene "+in.readInt()+" caracteres.");
                 }
