@@ -1,4 +1,4 @@
-package UT3_Repaso_1;
+package UT3_Repaso_TCP;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -12,7 +12,7 @@ public class Cliente {
 
     public static void main(String[] args) {
         String intento = "";
-        String ayuda = "";
+        String mensajeError, mensajeAcierto;
         boolean acierto = false;
         Scanner sc = new Scanner(System.in);
 
@@ -36,27 +36,23 @@ public class Cliente {
             System.out.println("Introduce una palabra de la misma longitud");
             intento = sc.nextLine();
 
-            while (intento.length()!=palabra) {
-                System.out.println("Error. Tu palabra no tiene la misma longitud.");
-                intento = sc.nextLine();
-            }
 
-
-            while(!acierto){
+            while (!acierto) {
                 out.writeUTF(intento);
+                mensajeError = in.readUTF();
+                System.out.println(mensajeError);
                 String check = in.readUTF();
                 if (check.equalsIgnoreCase("true")){
+                    //System.out.println("Acierto true");
                     acierto = true;
                 } else {
                     acierto = false;
+                    System.out.println("Prueba otra vez.");
+                    intento = sc.nextLine();
                 }
-                ayuda = in.readUTF();
-                System.out.println(ayuda);
-                System.out.println("Prueba otra vez.");
-                intento = sc.nextLine();
             }
 
-            String mensajeAcierto = in.readUTF();
+            mensajeAcierto = in.readUTF();
             System.out.println(mensajeAcierto);
 
             in.close();

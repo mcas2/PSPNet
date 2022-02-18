@@ -1,4 +1,4 @@
-package UT3_Repaso_1;
+package UT3_Repaso_TCP;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -10,7 +10,9 @@ public class Servidor {
     static final int PORT = 1024;
 
     public static void main(String[] args) {
-        String palabra = "hada";
+        String palabra = "hola";
+        String checkOut = "false";
+
         DataInputStream in;
         DataOutputStream out;
 
@@ -31,14 +33,17 @@ public class Servidor {
 
                 String intento = in.readUTF();
 
-                for (int i = 0; i < palabra.length() && !intento.equalsIgnoreCase(palabra); i++) {
-                    out.writeUTF("Error. La posición " + i + " es una " + palabra.charAt(i+1));
+                for (int i = 0; i < palabra.length() && !checkOut.equalsIgnoreCase("true"); i++) {
+                    System.out.println("se mete "+i);
+                    out.writeUTF("Error. La posición " + i + " es una " + palabra.charAt(i));
 
-                    intento = in.readUTF();
-                    if (intento == palabra){
-                        out.writeUTF("true");
+                    if (intento.equalsIgnoreCase(palabra)){
+                        checkOut = "true";
+                        out.writeUTF(checkOut);
                     } else{
-                        out.writeUTF("false");
+                        checkOut = "false";
+                        out.writeUTF(checkOut);
+                        intento = in.readUTF();
                     }
                 }
 
