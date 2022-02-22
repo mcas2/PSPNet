@@ -24,7 +24,7 @@ public class Servidor {
                 socketUDP.receive(peticion);
 
                 mensaje = new String(peticion.getData());
-                System.out.println("Recibiendo la petición del cliente...");
+                System.out.println("Recibiendo la petición del cliente..."+mensaje);
 
                 int puertoCliente = peticion.getPort();
                 InetAddress address = peticion.getAddress();
@@ -32,9 +32,9 @@ public class Servidor {
                 String msgRespuesta = now.toString();
                 buffer = msgRespuesta.getBytes();
 
-                //DatagramPacket respuesta = new DatagramPacket(buffer, buffer.length, address, puertoCliente);
-                //socketUDP.send(respuesta);
-                //System.out.println("Enviada la respuesta");
+                DatagramPacket respuesta = new DatagramPacket(buffer, buffer.length, address, puertoCliente);
+                socketUDP.send(respuesta);
+                System.out.println("Enviada la respuesta");
             }
 
         } catch (SocketException e) {

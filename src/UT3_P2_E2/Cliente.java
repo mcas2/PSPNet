@@ -19,7 +19,7 @@ public class Cliente {
             String mensaje = "Petición";
 
             buffer = mensaje.getBytes();
-            buffer = new byte[1024];
+
 
             DatagramPacket peticion = new DatagramPacket(buffer, buffer.length, serverAddress, PORT_SERVER);
 
