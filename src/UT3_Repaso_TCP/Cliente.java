@@ -12,8 +12,7 @@ public class Cliente {
 
     public static void main(String[] args) {
         String intento = "";
-        String mensajeError, mensajeAcierto;
-        boolean acierto = false;
+        String mensaje;
         Scanner sc = new Scanner(System.in);
 
         DataInputStream in;
@@ -28,32 +27,31 @@ public class Cliente {
             out = new DataOutputStream(sk.getOutputStream());
             System.out.println("Cliente conectado");
 
+            //Recibimos longitud - R
             String inicio = in.readUTF();
             System.out.println(inicio);
+            String [] array = inicio.split(":");
+            int longitud = Integer.parseInt(array[1]);
 
-            int palabra = Integer.parseInt(inicio.substring(42));
-            System.out.println(palabra);
-            System.out.println("Introduce una palabra de la misma longitud");
-            intento = sc.nextLine();
+            System.out.println("Introduce una palabra de "+longitud+" letras.");
+            intento = comprobarLongitud(sc.nextLine(), longitud);
 
+            //Enviamos la palabra - E
+            out.writeUTF(intento);
 
-            while (!acierto) {
-                out.writeUTF(intento);
-                mensajeError = in.readUTF();
-                System.out.println(mensajeError);
-                String check = in.readUTF();
-                if (check.equalsIgnoreCase("true")){
-                    //System.out.println("Acierto true");
-                    acierto = true;
-                } else {
-                    acierto = false;
-                    System.out.println("Prueba otra vez.");
-                    intento = sc.nextLine();
-                }
+            //Recibimos si es un acierto - R
+            mensaje = in.readUTF();
+            System.out.println(mensaje);
+
+            while (!mensaje.equalsIgnoreCase("acierto")) {
+                //E
+                out.writeUTF(comprobarLongitud(sc.nextLine(), longitud));
+                //R
+                mensaje = in.readUTF();
+                System.out.println(mensaje);
             }
 
-            mensajeAcierto = in.readUTF();
-            System.out.println(mensajeAcierto);
+            System.out.println("¡Enhorabuena! Has acertado.");
 
             in.close();
             out.close();
@@ -62,5 +60,16 @@ public class Cliente {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public static String comprobarLongitud(String cadena, int longitud){
+        Scanner sc = new Scanner(System.in);
+        if (cadena.length()!=longitud) {
+            do {
+                System.out.println("¡Cuidado! La palabra tiene " + longitud + " letras. Introdúcela otra vez.");
+                cadena = sc.nextLine();
+            } while (cadena.length() != longitud);
+        }
+        return cadena;
     }
 }

@@ -41,7 +41,7 @@ public class Cliente {
             System.out.println("Introduce una palabra de " + longitud + " letras.");
             String intento;
             intento = sc.nextLine();
-            comprobarLongitud(intento, longitud);
+            intento = comprobarLongitud(intento, longitud);
 
             //Enviamos el primer mensaje - E
             buffer = new byte[1024];
@@ -59,7 +59,8 @@ public class Cliente {
                 //Probamos de nuevo - E
                 System.out.println(resultado);
                 intento = sc.nextLine();
-                comprobarLongitud(intento, longitud);
+                intento =
+                        comprobarLongitud(intento, longitud);
                 buffer = intento.getBytes();
                 peticion = new DatagramPacket(buffer, buffer.length, address_Server, PORT);
                 ds.send(peticion);
